@@ -26,18 +26,19 @@ class MealsView extends StatelessWidget {
         init: MealsController(),
         builder: (_) {
           return ListView.builder(
-              itemCount: controller.addMealsById(cat.id).length,
-              itemBuilder: (ctx, index) {
-                final meal = controller.addMealsById(cat.id)[index];
-                if (controller.loading.isTrue) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return MealCard(
-                    meal: meal,
-                    onTab: () {},
-                  );
-                }
-              });
+            itemCount: controller.addMealsById(cat.id).length,
+            itemBuilder: (ctx, index) {
+              final meal = controller.addMealsById(cat.id)[index];
+              if (controller.loading.isTrue) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return MealCard(
+                  meal: meal,
+                  onTab: () {},
+                );
+              }
+            },
+          );
         },
       ),
     );
