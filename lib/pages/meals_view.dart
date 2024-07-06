@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meals_app/controller/meals_controller.dart';
 import 'package:meals_app/models/category_model.dart';
+import 'package:meals_app/pages/meal_details_page.dart';
 import 'package:meals_app/widgets/meal_card.dart';
 
 class MealsView extends StatelessWidget {
@@ -34,7 +35,12 @@ class MealsView extends StatelessWidget {
               } else {
                 return MealCard(
                   meal: meal,
-                  onTab: () {},
+                  onTab: () => Get.to(
+                    () => MealDetailsPage(
+                      mealModel: meal,
+                      catModel: cat,
+                    ),
+                  ),
                 );
               }
             },

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:meals_app/data.dart';
 import 'package:meals_app/models/category_model.dart';
 import 'package:meals_app/pages/meals_view.dart';
+import 'package:meals_app/widgets/bottom_nav_bar.dart';
 import 'package:meals_app/widgets/cat_card.dart';
 
 class HomePage extends StatelessWidget {
-  // final MealsController controller = Get.find();
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,7 @@ class HomePage extends StatelessWidget {
       drawer: _drawer(context),
       appBar: _appBar(),
       body: _buildUI(),
-      bottomNavigationBar: _bottomNavBar(),
-    );
-  }
-
-  Widget _bottomNavBar() {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.amber,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.category),
-          label: 'Category',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.star),
-          label: 'Favourite',
-        )
-      ],
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 

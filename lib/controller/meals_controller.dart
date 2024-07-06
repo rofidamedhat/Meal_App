@@ -3,7 +3,25 @@ import 'package:get/get.dart';
 import '../models/meal_model.dart';
 
 class MealsController extends GetxController {
+  final RxInt selectedIndex = 0.obs;
   final RxBool loading = false.obs;
+  final RxBool isFav = false.obs;
+  void showingSnackBar() {
+    if (isFav.isTrue) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'Marked as a Favorite',
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Meal is no Longer a Favorite',
+        duration: Duration(seconds: 3),
+      ));
+    }
+  }
+
   List<MealModel> mealList = [
     MealModel(
       id: 'm1',
