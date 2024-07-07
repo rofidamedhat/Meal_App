@@ -28,17 +28,46 @@ class MealDetailsPage extends StatelessWidget {
       actions: [
         Obx(
           () => IconButton(
-              onPressed: () {
-                controller.isFav.value = !controller.isFav.value;
+            onPressed: () {
+              if (controller.isFav.value != true) {//not fav===>fav
+                print(1);
+                controller.addMealToFavList(mealModel);
+                print(2);
+                controller.isFav.value = !controller.isFav.value;//true
+                print(3);
+                print(controller.isFav.value);
                 controller.showingSnackBar();
-              },
-              icon: Icon(
-                controller.isFav.value ? Icons.star : Icons.star_border,
-                color: Colors.amber,
-              )),
+                print(4);
+              } else {
+                print(5);
+                controller.removeMealFromFavList(mealModel);
+                print(6);
+                controller.isFav.value = !controller.isFav.value;
+                print(7);
+                print(controller.isFav.value);
+                controller.showingSnackBar();
+                print(8);
+              }   
+            },
+            icon: _iconButton(),
+          ),
         )
       ],
     );
+  }
+
+  Widget _iconButton() {
+    if (controller.isFav.isTrue && controller.favList.contains(mealModel)) {
+      return const Icon(
+        Icons.star,
+        color: Colors.amber,
+      );
+    } else {
+      return const Icon(
+        Icons.star_border,
+        color: Colors.amber,
+      );
+    }
   }
 
   Widget _buildUI(BuildContext context) {
@@ -97,3 +126,4 @@ class MealDetailsPage extends StatelessWidget {
     );
   }
 }
+                // controller.isFav.value ? Icons.star : Icons.star_border,

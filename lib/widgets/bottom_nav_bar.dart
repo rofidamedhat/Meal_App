@@ -16,7 +16,7 @@ class BottomNavBar extends StatelessWidget {
         if (controller.selectedIndex.value == 0) {
           Get.to(() => const HomePage());
         } else {
-          Get.to(() => const FavScreen());
+          Get.to(() => FavScreen());
         }
       },
       currentIndex: controller.selectedIndex.value,

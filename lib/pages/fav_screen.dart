@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meals_app/controller/meals_controller.dart';
 import 'package:meals_app/widgets/bottom_nav_bar.dart';
+import 'package:meals_app/widgets/meal_card.dart';
 
 class FavScreen extends StatelessWidget {
-  const FavScreen({super.key});
+  final MealsController controller = Get.find();
+  FavScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +27,15 @@ class FavScreen extends StatelessWidget {
   }
 
   Widget _buildUI(BuildContext context) {
-    return Container();
+    return ListView.builder(
+      itemCount: controller.favList.length,
+      itemBuilder: (context, index) {
+        final meal = controller.favList[index];
+        return MealCard(
+          meal: meal,
+          onTab: () {},
+        );
+      },
+    );
   }
 }

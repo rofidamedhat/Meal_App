@@ -6,6 +6,7 @@ class MealsController extends GetxController {
   final RxInt selectedIndex = 0.obs;
   final RxBool loading = false.obs;
   final RxBool isFav = false.obs;
+  List<MealModel> favList = [];
   void showingSnackBar() {
     if (isFav.isTrue) {
       Get.showSnackbar(
@@ -384,5 +385,31 @@ class MealsController extends GetxController {
     loading.value = false;
 
     return customMealList;
+  }
+
+  addMealToFavList(MealModel meal) {
+    if (!favList.contains(meal)) {
+      // isFav.value = true;
+      favList.add(meal);
+      update();
+    }
+    for (var meal in favList) {
+      print('add meal ');
+      print(meal.id);
+    }
+    return favList;
+  }
+
+  removeMealFromFavList(MealModel meal) {
+    if (favList.contains(meal)) {
+      // isFav.value = false;
+      favList.remove(meal);
+      update();
+    }
+    for (var meal in favList) {
+      print('remove meal ');
+      print(meal.id);
+    }
+    return favList;
   }
 }
