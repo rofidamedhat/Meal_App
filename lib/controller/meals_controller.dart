@@ -3,24 +3,38 @@ import 'package:get/get.dart';
 import '../models/meal_model.dart';
 
 class MealsController extends GetxController {
+  
+  static MealsController get instance => Get.find<MealsController>();
+
   final RxInt selectedIndex = 0.obs;
   final RxBool loading = false.obs;
-  final RxBool isFav = false.obs;
   List<MealModel> favList = [];
-  void showingSnackBar() {
-    if (isFav.isTrue) {
-      Get.showSnackbar(
-        const GetSnackBar(
-          message: 'Marked as a Favorite',
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } else {
-      Get.showSnackbar(const GetSnackBar(
-        message: 'Meal is no Longer a Favorite',
-        duration: Duration(seconds: 3),
-      ));
-    }
+
+  // void showingSnackBar(MealModel meal) {
+  //   final isAdded = checkIfMealIsFavOrNot(meal);
+  //   if (isAdded) {
+  //     Get.showSnackbar(const GetSnackBar(
+  //       message: 'Meal is no Longer a Favorite',
+  //       duration: Duration(seconds: 3),
+  //     ));
+  //   } else {
+  //     Get.showSnackbar(
+  //       const GetSnackBar(
+  //         message: 'Marked as a Favorite',
+  //         duration: Duration(seconds: 3),
+  //       ),
+  //     );
+  //   }
+  // }
+  addMealToFavList(MealModel meal) {
+    mealList.where((element) => element == meal).single.isFav = true;
+    update();
+  }
+
+  removeMealFromFavList(MealModel meal) {
+    mealList.where((element) => element == meal).single.isFav =
+        false; //how to store a List<MealModel> by shared Pref;
+    update();
   }
 
   List<MealModel> mealList = [
@@ -375,41 +389,23 @@ class MealsController extends GetxController {
   ];
 
   List<MealModel> addMealsById(String catId) {
-    loading.value = true;
     List<MealModel> customMealList = [];
-    mealList.forEach((meal) {
+    for (var meal in mealList) {
       if (meal.categories.contains(catId)) {
         customMealList.add(meal);
       }
-    });
-    loading.value = false;
-
+    }
     return customMealList;
   }
 
-  addMealToFavList(MealModel meal) {
-    if (!favList.contains(meal)) {
-      // isFav.value = true;
-      favList.add(meal);
-      update();
-    }
-    for (var meal in favList) {
-      print('add meal ');
-      print(meal.id);
-    }
-    return favList;
-  }
-
-  removeMealFromFavList(MealModel meal) {
+  bool checkIfMealIsFavOrNot(MealModel meal) {
     if (favList.contains(meal)) {
-      // isFav.value = false;
-      favList.remove(meal);
-      update();
-    }
-    for (var meal in favList) {
-      print('remove meal ');
-      print(meal.id);
-    }
-    return favList;
+      // favList = favList.where((favMeal) => favMeal.id != meal.id).toList();
+
+      return true;
+    } else {
+      return false;
+    } //if this func return true then this FavList 100 % surely doesnot hav meal
+    //if return false then favList doesNot have this meal
   }
 }

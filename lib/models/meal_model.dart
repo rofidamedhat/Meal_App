@@ -11,6 +11,7 @@ enum Complexity {
 }
 
 class MealModel {
+   bool isFav;
   final String id;
   final List<String> categories;
   final String title;
@@ -26,6 +27,7 @@ class MealModel {
   final Complexity complexity;
 
   MealModel({
+    this.isFav = false,
     required this.id,
     required this.categories,
     required this.title,

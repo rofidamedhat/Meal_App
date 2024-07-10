@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:meals_app/controller/meals_controller.dart';
 import 'package:meals_app/models/category_model.dart';
 import 'package:meals_app/models/meal_model.dart';
+import 'package:meals_app/widgets/custom_app_bar.dart';
 
 class MealDetailsPage extends StatelessWidget {
-  final MealsController controller = Get.find();
+  // final SinMealsController controller = Get.find();
   final MealModel mealModel;
   final CategoryModel catModel;
-  MealDetailsPage({
+  const MealDetailsPage({
     Key? key,
     required this.mealModel,
     required this.catModel,
@@ -16,59 +17,50 @@ class MealDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      body: _buildUI(context),
+    return GetBuilder<MealsController>(
+      init: MealsController(),
+      builder: (_) => Scaffold(
+        appBar: CustomAppBar(
+          mealModel: mealModel,
+        ),
+        body: _buildUI(context),
+      ),
     );
   }
 
-  PreferredSizeWidget _appBar() {
-    return AppBar(
-      title: Text(mealModel.title),
-      actions: [
-        Obx(
-          () => IconButton(
-            onPressed: () {
-              if (controller.isFav.value != true) {//not fav===>fav
-                print(1);
-                controller.addMealToFavList(mealModel);
-                print(2);
-                controller.isFav.value = !controller.isFav.value;//true
-                print(3);
-                print(controller.isFav.value);
-                controller.showingSnackBar();
-                print(4);
-              } else {
-                print(5);
-                controller.removeMealFromFavList(mealModel);
-                print(6);
-                controller.isFav.value = !controller.isFav.value;
-                print(7);
-                print(controller.isFav.value);
-                controller.showingSnackBar();
-                print(8);
-              }   
-            },
-            icon: _iconButton(),
-          ),
-        )
-      ],
-    );
-  }
+  // PreferredSizeWidget _appBar() {
+  //   return AppBar(
+  //     title: Text(mealModel.title),
+  //     actions: [
+  //       IconButton(
+  //         onPressed: () {
+  //           if (controller.favList.contains(mealModel)==false) {//controller.checkIfMealIsFavOrNot(mealModel) == false
+  //             controller.addMealToFavList(mealModel);
+  //           } else {
+  //             controller.removeMealFromFavList(mealModel);
+  //           }
 
-  Widget _iconButton() {
-    if (controller.isFav.isTrue && controller.favList.contains(mealModel)) {
-      return const Icon(
-        Icons.star,
-        color: Colors.amber,
-      );
-    } else {
-      return const Icon(
-        Icons.star_border,
-        color: Colors.amber,
-      );
-    }
-  }
+  //           controller.showingSnackBar(mealModel);
+  //         },
+  //         icon: _iconButton(),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // Widget _iconButton() {
+  //   if (controller.checkIfMealIsFavOrNot(mealModel) == true) {
+  //     return const Icon(
+  //       Icons.star,
+  //       color: Colors.amber,
+  //     );
+  //   } else {
+  //     return const Icon(
+  //       Icons.star_border,
+  //       color: Colors.amber,
+  //     );
+  //   }
+  // }
 
   Widget _buildUI(BuildContext context) {
     return SafeArea(
@@ -126,4 +118,3 @@ class MealDetailsPage extends StatelessWidget {
     );
   }
 }
-                // controller.isFav.value ? Icons.star : Icons.star_border,

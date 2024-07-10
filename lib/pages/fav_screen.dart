@@ -5,7 +5,6 @@ import 'package:meals_app/widgets/bottom_nav_bar.dart';
 import 'package:meals_app/widgets/meal_card.dart';
 
 class FavScreen extends StatelessWidget {
-  final MealsController controller = Get.find();
   FavScreen({super.key});
 
   @override
@@ -27,13 +26,20 @@ class FavScreen extends StatelessWidget {
   }
 
   Widget _buildUI(BuildContext context) {
+    MealsController controller = Get.find();
+
     return ListView.builder(
-      itemCount: controller.favList.length,
+      itemCount:
+          controller.mealList.where((element) => element.isFav == true).length,
       itemBuilder: (context, index) {
-        final meal = controller.favList[index];
+        final meal = controller.mealList
+            .where((element) => element.isFav == true)
+            .toList()[index];
         return MealCard(
           meal: meal,
-          onTab: () {},
+          onTab: () {
+            // Get.to(() => MealDetailsPage(mealModel: meal));
+          },
         );
       },
     );
