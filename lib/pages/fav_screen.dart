@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meals_app/controller/meals_controller.dart';
+import 'package:meals_app/pages/meal_details_page.dart';
 import 'package:meals_app/widgets/bottom_nav_bar.dart';
+import 'package:meals_app/widgets/custom_drawer.dart';
 import 'package:meals_app/widgets/meal_card.dart';
 
 class FavScreen extends StatelessWidget {
@@ -11,6 +13,7 @@ class FavScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
+      drawer: const CustomDrawer(),
       body: _buildUI(context),
       bottomNavigationBar: BottomNavBar(),
     );
@@ -26,22 +29,24 @@ class FavScreen extends StatelessWidget {
   }
 
   Widget _buildUI(BuildContext context) {
-    MealsController controller = Get.find();
+    MealsController controller = MealsController.instance;
 
-    return ListView.builder(
-      itemCount:
-          controller.mealList.where((element) => element.isFav == true).length,
-      itemBuilder: (context, index) {
-        final meal = controller.mealList
-            .where((element) => element.isFav == true)
-            .toList()[index];
-        return MealCard(
-          meal: meal,
-          onTab: () {
-            // Get.to(() => MealDetailsPage(mealModel: meal));
-          },
-        );
-      },
-    );
+    return GetBuilder<MealsController>(
+        builder: (_) => ListView.builder(
+              itemCount: controller.mealList
+                  .where((element) => element.isFav == true)
+                  .length,
+              itemBuilder: (context, index) {
+                final meal = controller.mealList
+                    .where((element) => element.isFav == true)
+                    .toList()[index];
+                return MealCard(
+                  meal: meal,
+                  onTab: () {
+                    Get.to(() => MealDetailsPage(mealModel: meal));
+                  },
+                );
+              },
+            ));
   }
 }

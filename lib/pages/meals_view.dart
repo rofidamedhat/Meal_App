@@ -6,7 +6,7 @@ import 'package:meals_app/pages/meal_details_page.dart';
 import 'package:meals_app/widgets/meal_card.dart';
 
 class MealsView extends StatelessWidget {
-  final MealsController controller = Get.find();
+  final MealsController controller = MealsController.instance;
   final CategoryModel cat;
   MealsView({
     Key? key,
@@ -23,8 +23,7 @@ class MealsView extends StatelessWidget {
 
   Widget _buildUI(BuildContext context) {
     return SafeArea(
-      child: GetBuilder(
-        init: MealsController(),
+      child: GetBuilder<MealsController>(
         builder: (_) {
           return ListView.builder(
             itemCount: controller.addMealsById(cat.id).length,
@@ -38,7 +37,7 @@ class MealsView extends StatelessWidget {
                   onTab: () => Get.to(
                     () => MealDetailsPage(
                       mealModel: meal,
-                      catModel: cat,
+                      // catModel: cat,
                     ),
                   ),
                 );

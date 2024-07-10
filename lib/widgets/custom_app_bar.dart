@@ -11,24 +11,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final MealsController controller = MealsController.instance;
     return AppBar(
       title: Text(mealModel.title),
-      // leading: IconButton(
-      //   onPressed: () {
-      //     Get.back();
-      //   },
-      //   icon: const Icon(Icons.arrow_back),
-      // ),
       actions: [
         IconButton(
             onPressed: () {
               if (mealModel.isFav == false) {
-                //controller.mealList.where((element) => element.isFav==true)
-                //controller.checkIfMealIsFavOrNot(mealModel) == false
                 controller.addMealToFavList(mealModel);
               } else {
                 controller.removeMealFromFavList(mealModel);
               }
 
-              // controller.showingSnackBar(mealModel);
+              controller.showingSnackBar(mealModel);
             },
             icon: mealModel.isFav
                 ? const Icon(

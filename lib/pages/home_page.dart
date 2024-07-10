@@ -5,6 +5,7 @@ import 'package:meals_app/models/category_model.dart';
 import 'package:meals_app/pages/meals_view.dart';
 import 'package:meals_app/widgets/bottom_nav_bar.dart';
 import 'package:meals_app/widgets/cat_card.dart';
+import 'package:meals_app/widgets/custom_drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _drawer(context),
+      drawer: const CustomDrawer(),
       appBar: _appBar(),
       body: _buildUI(),
       bottomNavigationBar: BottomNavBar(),
@@ -43,80 +44,6 @@ class HomePage extends StatelessWidget {
             onTab: () => Get.to(() => MealsView(cat: cat)),
           );
         },
-      ),
-    );
-  }
-
-  Widget _drawer(BuildContext context) {
-    return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 4,
-            color: const Color.fromARGB(255, 132, 0, 51),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(width: 15),
-                Icon(Icons.fastfood_sharp, size: 50),
-                SizedBox(width: 10),
-                Text(
-                  'Cooking Up',
-                  style: TextStyle(
-                    color: Colors.white60,
-                    fontSize: 22,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              children: [
-                const SizedBox(width: 20),
-                Icon(
-                  Icons.restaurant,
-                  size: 30,
-                  color: Colors.pink[100],
-                ),
-                const SizedBox(width: 20),
-                Text(
-                  'Meals',
-                  style: TextStyle(
-                    color: Colors.pink[100],
-                    fontSize: 22,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              children: [
-                const SizedBox(width: 20),
-                Icon(
-                  Icons.settings,
-                  size: 30,
-                  color: Colors.pink[100],
-                ),
-                const SizedBox(width: 20),
-                Text(
-                  'Filters',
-                  style: TextStyle(
-                    color: Colors.pink[100],
-                    fontSize: 22,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meals_app/controller/meals_controller.dart';
-import 'package:meals_app/models/category_model.dart';
 import 'package:meals_app/models/meal_model.dart';
 import 'package:meals_app/widgets/custom_app_bar.dart';
 
 class MealDetailsPage extends StatelessWidget {
-  // final SinMealsController controller = Get.find();
   final MealModel mealModel;
-  final CategoryModel catModel;
+  // final CategoryModel catModel;
   const MealDetailsPage({
     Key? key,
     required this.mealModel,
-    required this.catModel,
+    // required this.catModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MealsController>(
-      init: MealsController(),
       builder: (_) => Scaffold(
         appBar: CustomAppBar(
           mealModel: mealModel,
@@ -27,40 +24,6 @@ class MealDetailsPage extends StatelessWidget {
       ),
     );
   }
-
-  // PreferredSizeWidget _appBar() {
-  //   return AppBar(
-  //     title: Text(mealModel.title),
-  //     actions: [
-  //       IconButton(
-  //         onPressed: () {
-  //           if (controller.favList.contains(mealModel)==false) {//controller.checkIfMealIsFavOrNot(mealModel) == false
-  //             controller.addMealToFavList(mealModel);
-  //           } else {
-  //             controller.removeMealFromFavList(mealModel);
-  //           }
-
-  //           controller.showingSnackBar(mealModel);
-  //         },
-  //         icon: _iconButton(),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Widget _iconButton() {
-  //   if (controller.checkIfMealIsFavOrNot(mealModel) == true) {
-  //     return const Icon(
-  //       Icons.star,
-  //       color: Colors.amber,
-  //     );
-  //   } else {
-  //     return const Icon(
-  //       Icons.star_border,
-  //       color: Colors.amber,
-  //     );
-  //   }
-  // }
 
   Widget _buildUI(BuildContext context) {
     return SafeArea(
